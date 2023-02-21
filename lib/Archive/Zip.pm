@@ -453,9 +453,8 @@ sub _isSeekable {
 
     # open my $fh, "+<", \$data;
     ref $fh eq "GLOB" && eval { seek $fh, 0, 1 } and return 1;
-    _CAN($fh, "stat")
-      and return -f $fh;
     return (_CAN($fh, "seek") and _CAN($fh, "tell")) ? 1 : 0;
+    return _CAN($fh, "stat") ? 1 : 0;
 }
 
 # Print to the filehandle, while making sure the pesky Perl special global
